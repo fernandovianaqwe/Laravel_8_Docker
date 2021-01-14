@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Hash;
+use App\Models\User;
 
 class AuthController extends Controller
 {
@@ -15,7 +18,7 @@ class AuthController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth:api', ['except' => ['login']]);
+        $this->middleware('auth:api', ['except' => ['login','register']]);
     }
 
     /**
@@ -28,7 +31,7 @@ class AuthController extends Controller
         $credentials = request(['email', 'password']);
         
         if (!$token = auth()->attempt($credentials)) {
-            return response()->json(['error' => 'Acesso não autorizado, Tente Novamente!'], 401);
+            return response()->json(['error' => 'Email ou Password incorreto, Tente Novamente!'], 401);
         }
 
         return $this->respondWithToken($token);
@@ -45,6 +48,31 @@ class AuthController extends Controller
         auth()->logout();
 
         return response()->json(['message' => 'Logout com sucesso.']);
+    }
+
+    //função para registro do sistema
+    public function register(Request $request)
+    {
+        //verificando os parametros enviados
+       $validator =  Validator::make($request->all(), [
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
+        ]);
+
+        //verificando se encontra erros nos paramtros enviados
+        if ($validator->fails()) {
+            return response()->json(['error' => 'Verificar parametros enviados.']);
+        }
+
+        //criando o usuario
+       User::create([
+            'name' => $request['name'],
+            'email' => $request['email'],
+            'password' => Hash::make($request['password']),
+        ]);
+         
+        return response()->json(['message' => 'Cadastro Realizado com sucesso.']);
     }
 
     /**
