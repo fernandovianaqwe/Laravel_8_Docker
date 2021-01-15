@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
+use App\Http\Middleware\Jwt;
 
 class AuthController extends Controller
 {
@@ -18,7 +19,7 @@ class AuthController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth:api', ['except' => ['login','register']]);
+        $this->middleware('jwt', ['except' => ['login','register']]);
     }
 
     /**
@@ -26,8 +27,28 @@ class AuthController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function login()
+    public function login(Request $request)
     {
+        //definindo as mensagem de erros
+        $messages = [
+            'email' => 'Campo inválido.',
+            'email.email' => 'O Campo EMAIL deve conter um email válido.',
+            'email.required' => 'O Campo EMAIL é obrigatório.',
+            'password' => 'Campo inválido.',
+            'password.required' => 'O Campo PASSWORD é obrigatório.',
+            'password.min' => 'O Campo PASSWORD deve conter no minimo 5 caracter.',
+        ];
+        //verificando os parametros enviados
+         $validator =  Validator::make($request->all(), [
+              'email' => ['required', 'string', 'email', 'max:255'],
+              'password' => ['required', 'string', 'min:5'],
+         ],$messages);
+
+        // //verificando se encontra erros nos paramtros enviados
+         if ($validator->fails()) {
+             return response()->json($validator->messages(), 200);
+         }
+
         $credentials = request(['email', 'password']);
         
         if (!$token = auth()->attempt($credentials)) {
@@ -53,17 +74,28 @@ class AuthController extends Controller
     //função para registro do sistema
     public function register(Request $request)
     {
-        //verificando os parametros enviados
-       $validator =  Validator::make($request->all(), [
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
-        ]);
+        //definindo as mensagem de erros
+        $messages = [
+            'email' => 'Campo inválido.',
+            'email.email' => 'O Campo EMAIL deve conter um email válido.',
+            'email.required' => 'O Campo EMAIL é obrigatório.',
+            'email.unique' => 'Email já cadastrado.',
+            'password' => 'Campo inválido.',
+            'password.required' => 'O Campo PASSWORD é obrigatório.',
+            'name' => 'Campo inválido..',
+            'name.required' => 'O Campo NAME é obrigatório.',
+        ];
+         //verificando os parametros enviados
+         $validator =  Validator::make($request->all(), [
+              'name' => ['required', 'string', 'max:255'],
+              'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+              'password' => ['required', 'string', 'min:5', 'confirmed'],
+         ],$messages);
 
         //verificando se encontra erros nos paramtros enviados
-        if ($validator->fails()) {
-            return response()->json(['error' => 'Verificar parametros enviados.']);
-        }
+         if ($validator->fails()) {
+             return response()->json($validator->messages(), 200);
+         }
 
         //criando o usuario
        User::create([
