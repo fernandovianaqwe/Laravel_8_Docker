@@ -24,7 +24,7 @@ class InertController extends Controller
             'name' => 'Campo inválido.',
             'name.required' => 'O Campo NAME é obrigatório.',
             'estilo' => 'Campo inválido.',
-            'estilo.required' => 'O Campo PASSWORD é obrigatório.',
+            'estilo.required' => 'O Campo ESTILO é obrigatório.',
         ];
         //verificando os parametros enviados
          $validator =  Validator::make($request->all(), [

@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ConsultasController;
 use App\Http\Controllers\InertController;
+use App\Http\Controllers\UpdateController;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,6 +33,9 @@ Route::group(['middleware' => 'jwt', 'prefix' => 'auth'], function ($router) {
     Route::post('cadastrarcantores', [InertController::class , 'cadastrarCantores']);
     //endpint para cadastrar cantores
     Route::post('cadastraalbuns', [InertController::class , 'cadastraAlbuns']);
+
+    //endpont para busca de cantores
+    Route::put('upateestilo', [UpdateController::class , 'upateEstilo']);
 
     //endpont para busca de cantores
     Route::get('buscacantores', [ConsultasController::class , 'buscaCantores']);
