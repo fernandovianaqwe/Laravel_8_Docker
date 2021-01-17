@@ -17,7 +17,7 @@ class InertController extends Controller
     }
 
     //endpoint para cadastar cantores
-    public function cadastrarcantores(Request $request)
+    public function cadastrarCantores(Request $request)
     {
         //definindo as mensagem de erros
         $messages = [

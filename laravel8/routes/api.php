@@ -20,7 +20,7 @@ use App\Http\Controllers\InertController;
 //endpoints
 //endpint para login
 Route::post('login', [AuthController::class , 'login']);
-//endpint para login
+//endpint para register
 Route::post('register', [AuthController::class , 'register']);
 
 Route::group(['middleware' => 'jwt', 'prefix' => 'auth'], function ($router) {
@@ -29,9 +29,13 @@ Route::group(['middleware' => 'jwt', 'prefix' => 'auth'], function ($router) {
     //endpint para refresh do token
     Route::post('refresh', [AuthController::class , 'refresh']);
     //endpint para cadastrar cantores
-    Route::post('cadastrarcantores', [InertController::class , 'cadastrarcantores']);
+    Route::post('cadastrarcantores', [InertController::class , 'cadastrarCantores']);
     //endpint para cadastrar cantores
-    Route::post('cadastraalbuns', [InertController::class , 'cadastraalbuns']);
+    Route::post('cadastraalbuns', [InertController::class , 'cadastraAlbuns']);
+
+    //endpont para busca de cantores
+    Route::get('buscacantores', [ConsultasController::class , 'buscaCantores']);
+
 });
 
 
