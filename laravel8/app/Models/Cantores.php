@@ -14,4 +14,9 @@ class Cantores extends Model
         'name',
         'estilos',
     ];
+
+    public function Albuns()
+  {
+    return $this->hasMany(Albuns::class);
+  }
 }

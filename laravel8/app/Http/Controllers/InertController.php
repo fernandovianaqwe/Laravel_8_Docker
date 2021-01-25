@@ -84,8 +84,9 @@ class InertController extends Controller
         }
         //verificando se o album já foi cadastrado
         $album = DB::table('albuns')->where('name', $request['name'])->get();
-        if(!json_decode($album)){
-            return response()->json(['error' => 'Album já cadastrado!'], 200);
+        $teste = json_decode(json_encode($buscabanco));
+        if(empty($teste->data)){
+             return response()->json(['error' => 'Album já cadastrado!'], 200);
         }
 
         //adicionando as imagem na api s3
