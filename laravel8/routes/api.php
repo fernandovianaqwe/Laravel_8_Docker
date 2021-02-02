@@ -41,6 +41,8 @@ Route::group(['middleware' => 'jwt', 'prefix' => 'auth'], function ($router) {
     Route::get('buscacantores', [ConsultasController::class , 'buscaCantores']);
     //endpont para busca de cantores e albuns
     Route::get('buscacantoresalbuns', [ConsultasController::class , 'buscaCantoresAlbuns']);
+    //endpont para busca de cantores e albuns
+    Route::get('buscaalbunsimg', [ConsultasController::class , 'buscaAlbunsImg']);
 
 });
 

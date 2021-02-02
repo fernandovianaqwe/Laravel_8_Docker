@@ -12,6 +12,7 @@ class Imagens extends Model
     protected $fillable = [
         'id',
         'cantores_id',
+        'name_album',
         'imagem',
     ];
 

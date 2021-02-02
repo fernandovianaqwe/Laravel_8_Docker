@@ -79,13 +79,14 @@ class InertController extends Controller
 
         //verificando se existe cantor com o id 
         $cantor = DB::table('cantores')->where('id', $request['id'])->get();
-        if(!json_decode($cantor)){
+        $teste = json_decode(json_encode($cantor));
+        if(empty($teste)){
             return response()->json(['error' => 'Nenhum Cantor escontrado com o id!'], 200);
         }
         //verificando se o album já foi cadastrado
         $album = DB::table('albuns')->where('name', $request['name'])->get();
-        $teste = json_decode(json_encode($buscabanco));
-        if(empty($teste->data)){
+        $teste = json_decode(json_encode($album));
+        if(!empty($teste)){
              return response()->json(['error' => 'Album já cadastrado!'], 200);
         }
 
@@ -115,6 +116,7 @@ class InertController extends Controller
                         //insert no banco na tebela imagens
                          Imagens::create([
                              'cantores_id' => $request['id'],
+                             'name_album' => $request['name'],
                              'imagem' => $nomeimg,
                          ]);
                     }
