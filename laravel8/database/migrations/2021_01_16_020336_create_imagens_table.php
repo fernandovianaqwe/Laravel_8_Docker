@@ -16,12 +16,11 @@ class CreateImagensTable extends Migration
         Schema::create('imagens', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('cantores_id')->unsigned();
-            $table->string('name_album')->unsigned();
+            $table->string('name_album');
             $table->string('imagem');
             $table->timestamps();
             
             $table->foreign('cantores_id')->references('id')->on('cantores');
-            $table->foreign('name_album')->references('name')->on('albuns');
         });
     }
 
