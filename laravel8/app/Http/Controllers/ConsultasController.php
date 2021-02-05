@@ -155,7 +155,7 @@ class ConsultasController extends Controller
         $i = 1;
         foreach ($img as $value) {
             $url = Storage::disk('s3')->temporaryUrl(
-                $value->imagem, now()->addMinutes(5)
+                "xtrabgtde/".$value->imagem, now()->addMinutes(5)
             );
             $nomeimg = "link_img" . $i;
             $retorno[$nomeimg] = $url;

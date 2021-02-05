@@ -118,3 +118,4 @@ Buscar img s3(TOKEN JWT NECESSARIO)
 Rota GET: http://mundodamusica.com/api/auth/buscaalbunsimg
 Parametros(Params):
 "name": nome do album.
+OBS: expitação do link da imagem 5 minutos.
