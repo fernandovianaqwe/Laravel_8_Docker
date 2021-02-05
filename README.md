@@ -48,11 +48,70 @@ composer install
 
 php artisan migrate
 
-10º: Fazer a sua primeira requisição (cadastro):
+Fim da instalação.
+
+Fazer a sua primeira requisição (cadastro):
+Rota POST: http://mundodamusica.com/api/register
+Parametros:
+"email": email para cadastrar
+"name": nome do usuario
+"password": senha 
+"password_confirmation": repetir senha
+
+Fazer login 
+Rota POST: http://mundodamusica.com/api/login
+Parametros:
+"email": email cadastrado.
+"password": senha cadastrada.
+
+Renovar Token(TOKEN JWT NECESSARIO)
+Rota POST: http://mundodamusica.com/api/auth/refresh
+
+logout(TOKEN JWT NECESSARIO)
+Rota POST: http://mundodamusica.com/api/login
 
 
+Cadastrar Cantor(TOKEN JWT NECESSARIO)
+Rota POST: http://mundodamusica.com/api/auth/cadastrarcantores
+Parametros:
+"name": nome do cantor
+"estilo": estilo musical do cantor exemplo: sertanejo,pagode e etc.
 
+Cadastrar Albuns(TOKEN JWT NECESSARIO)
+Rota POST: http://mundodamusica.com/api/auth/cadastraalbuns
+Parametros:
+"name": nome do album.
+"id": id do cantor
+"img1": imagem de capa(imagem jpg ou png)
+"img2": imagem de capa2(imagem jpg ou png)
+OBS: quantas imagens de capa quiser so ir adicionando o parametro img3, img4....
 
+Buscar cantor(TOKEN JWT NECESSARIO)
+Rota GET: http://mundodamusica.com/api/auth/buscacantoresalbuns
+Parametros:
+"name": nome do cantor (opcional)
+"estilo": estilo musical do cantor(opcional)
+"id": id do cantor(opcional)
+"ordem": dados aceitos "asc" ou "desc"(opcional)
+"limit": limit de itens por pagina se nao for informado o padrao é 5 (opcional)
+OBS: pode fazer a busca sem mandar nenhum parametros e vai retornar todos os cantores,
+pode ser buscado por name ou estilo ou id.
 
+Buscar cantores e albuns(TOKEN JWT NECESSARIO)
+Rota GET: http://mundodamusica.com/api/auth/buscacantoresalbuns
+Parametros:
+"name": nome do cantor (opcional)
+"ordem": dados aceitos "asc" ou "desc"(opcional)
+"limit": limit de itens por pagina se nao for informado o padrao é 5 (opcional)
+OBS: pode fazer a busca sem mandar nenhum parametros e vai retornar todos os cantores e albuns.
 
+Update estilo cantor(TOKEN JWT NECESSARIO)
+Rota PUT: http://mundodamusica.com/api/auth/upateestilo
+Parametros:
+"id": id do cantor
+"estilo": estilo novo do cantor 
 
+Buscar img s3(TOKEN JWT NECESSARIO)
+Rota GET: http://mundodamusica.com/api/auth/buscaalbunsimg
+Parametros:
+"name": nome do album.

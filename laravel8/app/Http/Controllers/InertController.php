@@ -111,7 +111,7 @@ class InertController extends Controller
                     //insert na imagem na api s3
                     if (!Storage::disk('s3')->exists($nomeimg)) {
                          Storage::disk('s3')->putFileAs(
-                             'mundomusic', $request->file('img'.$i), $nomeimg
+                             'xtrabgtde', $request->file('img'.$i), $nomeimg
                          );
                         //insert no banco na tebela imagens
                          Imagens::create([
