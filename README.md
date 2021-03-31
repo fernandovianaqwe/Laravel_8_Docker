@@ -1,7 +1,4 @@
-Projeto para vaga de desenvolvedor - API RestFull
-
-Nome: Fernando Viana de Souza
-CPF: 048.745.261-52
+Projeto
 
 Requisitos:
 
