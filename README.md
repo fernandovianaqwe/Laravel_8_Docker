@@ -14,7 +14,7 @@ Adicionar 127.0.0.1 mundodamusica.com na ultima linha do arquivo.
 2º: Escolher um diretorio para fazer o git clone.
 executar o comando no terminal na preferência:
 
-git clone https://github.com/fernandovianaqwe/Laravel_Back_End_PJC.git
+git clone https://github.com/fernandovianaqwe/Laravel_8_Docker.git
 
 3º: Entrar na pasta clonada com o comando:
 
